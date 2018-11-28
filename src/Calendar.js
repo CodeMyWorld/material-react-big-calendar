@@ -25,6 +25,9 @@ import defaults from 'lodash/defaults'
 import transform from 'lodash/transform'
 import mapValues from 'lodash/mapValues'
 import { wrapAccessor } from './utils/accessors'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import blue from '@material-ui/core/colors/blue'
+import pink from '@material-ui/core/colors/pink'
 
 function viewNames(_views) {
   return !Array.isArray(_views) ? Object.keys(_views) : _views
@@ -212,6 +215,11 @@ class Calendar extends React.Component {
      * @type {(func|string)}
      */
     resourceTitleAccessor: accessor,
+
+    /**
+     * @type{(func|string)}
+     */
+    eventBgColorAccessor: accessor,
 
     /**
      * Determines the current date/time which is highlighted in the views.
@@ -734,6 +742,8 @@ class Calendar extends React.Component {
     resourceIdAccessor: 'id',
     resourceTitleAccessor: 'title',
 
+    eventBgColorAccessor: 'eventBgColor',
+
     longPressThreshold: 250,
     getNow: () => new Date(),
   }
@@ -757,6 +767,7 @@ class Calendar extends React.Component {
     resourceAccessor,
     resourceIdAccessor,
     resourceTitleAccessor,
+    eventBgColorAccessor,
     eventPropGetter,
     slotPropGetter,
     dayPropGetter,
@@ -797,6 +808,7 @@ class Calendar extends React.Component {
         resource: wrapAccessor(resourceAccessor),
         resourceId: wrapAccessor(resourceIdAccessor),
         resourceTitle: wrapAccessor(resourceTitleAccessor),
+        eventBgColor: wrapAccessor(eventBgColorAccessor),
       },
     }
   }
@@ -867,45 +879,56 @@ class Calendar extends React.Component {
 
     let CalToolbar = components.toolbar || Toolbar
     const label = View.title(current, { localizer, length })
+    const theme = createMuiTheme({
+      palette: {
+        primary: blue,
+        secondary: pink,
+      },
+      typography: {
+        useNextVariants: true,
+      },
+    })
 
     return (
-      <div
-        {...elementProps}
-        className={cn(className, 'rbc-calendar', props.rtl && 'rbc-is-rtl')}
-        style={style}
-      >
-        {toolbar && (
-          <CalToolbar
+      <MuiThemeProvider theme={theme}>
+        <div
+          {...elementProps}
+          className={cn(className, 'rbc-calendar', props.rtl && 'rbc-is-rtl')}
+          style={style}
+        >
+          {toolbar && (
+            <CalToolbar
+              date={current}
+              view={view}
+              views={viewNames}
+              label={label}
+              onView={this.handleViewChange}
+              onNavigate={this.handleNavigate}
+              localizer={localizer}
+            />
+          )}
+          <View
+            ref="view"
+            {...props}
+            events={events}
             date={current}
-            view={view}
-            views={viewNames}
-            label={label}
-            onView={this.handleViewChange}
-            onNavigate={this.handleNavigate}
+            getNow={getNow}
+            length={length}
             localizer={localizer}
+            getters={getters}
+            components={components}
+            accessors={accessors}
+            showMultiDayTimes={showMultiDayTimes}
+            getDrilldownView={this.getDrilldownView}
+            onNavigate={this.handleNavigate}
+            onDrillDown={this.handleDrillDown}
+            onSelectEvent={this.handleSelectEvent}
+            onDoubleClickEvent={this.handleDoubleClickEvent}
+            onSelectSlot={this.handleSelectSlot}
+            onShowMore={this._showMore}
           />
-        )}
-        <View
-          ref="view"
-          {...props}
-          events={events}
-          date={current}
-          getNow={getNow}
-          length={length}
-          localizer={localizer}
-          getters={getters}
-          components={components}
-          accessors={accessors}
-          showMultiDayTimes={showMultiDayTimes}
-          getDrilldownView={this.getDrilldownView}
-          onNavigate={this.handleNavigate}
-          onDrillDown={this.handleDrillDown}
-          onSelectEvent={this.handleSelectEvent}
-          onDoubleClickEvent={this.handleDoubleClickEvent}
-          onSelectSlot={this.handleSelectSlot}
-          onShowMore={this._showMore}
-        />
-      </div>
+        </div>
+      </MuiThemeProvider>
     )
   }
 

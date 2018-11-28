@@ -2,6 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cn from 'classnames'
 import { navigate } from './utils/constants'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import NavigateNext from '@material-ui/icons/NavigateNext'
+import NavigateBefore from '@material-ui/icons/NavigateBefore'
 
 class Toolbar extends React.Component {
   static propTypes = {
@@ -14,34 +19,40 @@ class Toolbar extends React.Component {
   }
 
   render() {
-    let { localizer: { messages }, label } = this.props
+    let {
+      localizer: { messages },
+      label,
+    } = this.props
 
     return (
       <div className="rbc-toolbar">
-        <span className="rbc-btn-group">
-          <button
-            type="button"
+        <div className="rbc-btn-group">
+          <Button
+            variant="contained"
             onClick={this.navigate.bind(null, navigate.TODAY)}
           >
             {messages.today}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <IconButton
+            variant="contained"
             onClick={this.navigate.bind(null, navigate.PREVIOUS)}
           >
-            {messages.previous}
-          </button>
-          <button
-            type="button"
+            <NavigateBefore />
+          </IconButton>
+          <IconButton
+            variant="contained"
             onClick={this.navigate.bind(null, navigate.NEXT)}
           >
-            {messages.next}
-          </button>
-        </span>
+            <NavigateNext />
+          </IconButton>
+        </div>
+        <div className="rbc-toolbar-label">
+          <Typography color="textPrimary" variant="h4">
+            {label}
+          </Typography>
+        </div>
 
-        <span className="rbc-toolbar-label">{label}</span>
-
-        <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
+        {/* <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span> */}
       </div>
     )
   }

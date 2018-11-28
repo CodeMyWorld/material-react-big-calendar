@@ -193,7 +193,6 @@ class DateContentRow extends React.Component {
           components={components}
           longPressThreshold={longPressThreshold}
         />
-
         <div className="rbc-row-content">
           {renderHeader && (
             <div className="rbc-row " ref={this.createHeadingRef}>

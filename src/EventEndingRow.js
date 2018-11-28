@@ -20,7 +20,10 @@ class EventEndingRow extends React.Component {
   }
 
   render() {
-    let { segments, slotMetrics: { slots } } = this.props
+    let {
+      segments,
+      slotMetrics: { slots },
+    } = this.props
     let rowSegments = eventLevels(segments).levels[0]
 
     let current = 1,
@@ -67,7 +70,11 @@ class EventEndingRow extends React.Component {
       }
     }
 
-    return <div className="rbc-row">{row}</div>
+    return (
+      <>
+        <div className="rbc-row">{row}</div>
+      </>
+    )
   }
 
   canRenderSlotEvent(slot, span) {
@@ -85,14 +92,11 @@ class EventEndingRow extends React.Component {
     let count = eventsInSlot(segments, slot)
 
     return count ? (
-      <a
-        key={'sm_' + slot}
-        href="#"
-        className={'rbc-show-more'}
-        onClick={e => this.showMore(slot, e)}
-      >
-        {localizer.messages.showMore(count)}
-      </a>
+      <div>
+        <span className={'rbc-show-more'}>
+          {localizer.messages.showMore(count)}
+        </span>
+      </div>
     ) : (
       false
     )

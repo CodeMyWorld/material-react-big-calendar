@@ -52,6 +52,8 @@ let propTypes = {
   onShowMore: PropTypes.func,
   onDrillDown: PropTypes.func,
   getDrilldownView: PropTypes.func.isRequired,
+  showAll: PropTypes.func,
+  addEvent: PropTypes.func,
 
   popup: PropTypes.bool,
 
@@ -184,7 +186,13 @@ class MonthView extends React.Component {
   }
 
   readerDateHeading = ({ date, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer } = this.props
+    let {
+      date: currentDate,
+      getDrilldownView,
+      localizer,
+      addEvent,
+      showAll,
+    } = this.props
 
     let isOffRange = dates.month(date) !== dates.month(currentDate)
     let isCurrent = dates.eq(date, currentDate, 'day')
@@ -206,7 +214,8 @@ class MonthView extends React.Component {
           date={date}
           drilldownView={drilldownView}
           isOffRange={isOffRange}
-          onDrillDown={e => this.handleHeadingClick(date, drilldownView, e)}
+          addEvent={() => addEvent(date)}
+          showAll={() => showAll(date)}
         />
       </div>
     )

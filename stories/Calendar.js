@@ -16,7 +16,7 @@ storiesOf('Big Calendar', module)
       popup
       events={demoEvents}
       onSelectEvent={action('event selected')}
-      defaultDate={new Date(2015, 3, 1)}
+      defaultDate={new Date(2016, 3, 1)}
     />
   ))
   .add('default view', () => {

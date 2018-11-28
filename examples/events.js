@@ -9,8 +9,9 @@ export default [
   {
     id: 1,
     title: 'Long Event',
-    start: new Date(2015, 3, 7),
-    end: new Date(2015, 3, 10),
+    start: new Date(2015, 4, 7),
+    end: new Date(2015, 4, 10),
+    eventBgColor: '#ab003c',
   },
 
   {
