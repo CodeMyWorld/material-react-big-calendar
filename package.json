@@ -1,9 +1,12 @@
 {
-  "name": "react-big-calendar",
-  "version": "0.20.2",
-  "description": "Calendar! with events",
-  "author": "Jason Quense <monastic.panic@gmail.com>",
-  "repository": "intljusticemission/react-big-calendar",
+  "name": "@alex_lai/gg-react-big-calendar",
+  "version": "0.0.1",
+  "description": "react-big-calendar with material ui",
+  "author": "Alex Lai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeMyWorld/material-react-big-calendar.git"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "style": "lib/css/react-big-calendar.css",
@@ -120,5 +123,14 @@
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
+  },
+  "bugs": {
+    "url": "https://github.com/CodeMyWorld/material-react-big-calendar/issues"
+  },
+  "homepage": "https://github.com/CodeMyWorld/material-react-big-calendar#readme",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
   }
 }

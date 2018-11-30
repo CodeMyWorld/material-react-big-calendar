@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
-import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
+import AddCircleOutline from '@material-ui/icons/AddCircle'
 import ViewList from '@material-ui/icons/FormatListBulleted'
 
 const btnStyle = {
